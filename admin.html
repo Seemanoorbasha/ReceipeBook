@@ -1,0 +1,90 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Animated Floating Elements -->
+    <div class="floating-elements">
+        <div class="float whisk"></div>
+        <div class="float spice"></div>
+        <div class="float garlic"></div>
+        <div class="float olive-oil"></div>
+    </div>
+    
+    <header class="glass-header">
+        <div class="logo-container">
+            <span class="logo-icon">👨‍🍳</span>
+            <h1>Admin</h1>
+        </div>
+        <nav>
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="#" class="active"><i class="fas fa-user-cog"></i> Admin</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="admin-panel glass-card">
+            <h2 class="panel-title"><i class="fas fa-plus-circle"></i> Create New Recipe</h2>
+            <form id="recipe-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-utensils"></i> Recipe Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="image"><i class="fas fa-image"></i> Image URL</label>
+                        <input type="url" id="image" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category"><i class="fas fa-tag"></i> Category</label>
+                        <select id="category" required>
+                            <option value="">Select Category</option>
+                            <option value="Juices">Juices</option>
+                            <option value="Desserts">Desserts</option>
+                            <option value="Vegetarian">Vegetarian</option>
+                            <option value="Non-veg">Non-Vegetarian</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="ingredients"><i class="fas fa-carrot"></i> Ingredients (one per line)</label>
+                        <textarea id="ingredients" rows="5" required></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="steps"><i class="fas fa-list-ol"></i> Preparation Steps (one per line)</label>
+                        <textarea id="steps" rows="5" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="time"><i class="fas fa-clock"></i> Cooking Time</label>
+                        <input type="text" id="time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="servings"><i class="fas fa-users"></i> Servings</label>
+                        <input type="number" id="servings" min="1" required>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn"><i class="fas fa-save"></i> Save Recipe</button>
+            </form>
+        </div>
+
+        <div class="recipes-list">
+            <h2 class="panel-title"><i class="fas fa-edit"></i> Manage Recipes</h2>
+            <div class="search-container">
+                <input type="text" placeholder="Search recipes..." id="admin-search">
+                <button id="admin-search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <div id="admin-recipe-container" class="recipe-grid"></div>
+        </div>
+    </main>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -3,268 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe Book - Delicious Recipes Collection</title>
+    <title>Recipe Book</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <i class="fas fa-utensils"></i>
-                <h1>Recipe Book</h1>
-            </div>
-            <nav class="nav">
-                <button id="adminBtn" class="admin-btn">
-                    <i class="fas fa-user-cog"></i> Admin Login
-                </button>
-                <button id="logoutBtn" class="logout-btn" style="display: none;">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
-            </nav>
+    <!-- Animated Floating Elements -->
+    <div class="floating-elements">
+        <div class="float tomato"></div>
+        <div class="float herb"></div>
+        <div class="float lemon"></div>
+        <div class="float pepper"></div>
+    </div>
+    
+    <header class="glass-header">
+        <div class="logo-container">
+            <span class="logo-icon">🍳</span>
+            <h1>Receipe Book</h1>
         </div>
+        <nav>
+            <a href="#" class="active"><i class="fas fa-home"></i> Home</a>
+            <a href="admin.html"><i class="fas fa-user-cog"></i> Admin</a>
+        </nav>
     </header>
 
-    <!-- Edit Recipe Modal -->
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2><i class="fas fa-edit"></i> Edit Recipe</h2>
-            <form id="editRecipeForm" class="recipe-form">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="editRecipeName">Recipe Name:</label>
-                        <input type="text" id="editRecipeName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editRecipeCategory">Category:</label>
-                        <select id="editRecipeCategory" required>
-                            <option value="">Select Category</option>
-                            <option value="Appetizer">Appetizer</option>
-                            <option value="Main Course">Main Course</option>
-                            <option value="Dessert">Dessert</option>
-                            <option value="Beverage">Beverage</option>
-                            <option value="Snack">Snack</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="editCookingTime">Cooking Time (minutes):</label>
-                        <input type="number" id="editCookingTime" min="1" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editServings">Servings:</label>
-                        <input type="number" id="editServings" min="1" required>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="editRecipeImage">Image URL:</label>
-                    <input type="url" id="editRecipeImage" placeholder="https://example.com/image.jpg">
-                </div>
-                
-                <div class="form-group">
-                    <label for="editRecipeDescription">Description:</label>
-                    <textarea id="editRecipeDescription" rows="3" required></textarea>
-                </div>
-                
-                <div class="ingredients-section">
-                    <label>Ingredients:</label>
-                    <div id="editIngredientsList">
-                        <!-- Dynamic ingredients will be loaded here -->
-                    </div>
-                    <button type="button" id="editAddIngredient" class="btn btn-outline">
-                        <i class="fas fa-plus"></i> Add Ingredient
-                    </button>
-                </div>
-                
-                <div class="steps-section">
-                    <label>Preparation Steps:</label>
-                    <div id="editStepsList">
-                        <!-- Dynamic steps will be loaded here -->
-                    </div>
-                    <button type="button" id="editAddStep" class="btn btn-outline">
-                        <i class="fas fa-plus"></i> Add Step
-                    </button>
-                </div>
-                
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary btn-large">
-                        <i class="fas fa-save"></i> Update Recipe
-                    </button>
-                    <button type="button" class="btn btn-secondary" onclick="recipeBook.closeModal(document.getElementById('editModal'))">
-                        <i class="fas fa-times"></i> Cancel
-                    </button>
-                </div>
-            </form>
+    <main>
+        <div class="hero glass-card">
+            <h2>Savor the Flavor Journey</h2>
+            <p>Discover culinary masterpieces curated by our chefs</p>
+            <div class="search-container">
+                <input type="text" placeholder="Search recipes..." id="search-input">
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+            </div>
         </div>
-    </div>
-
-    <!-- Main Content -->
-    <main class="main">
-        <div class="container">
-            <!-- Admin Panel -->
-            <section id="adminPanel" class="admin-panel" style="display: none;">
-                <div class="admin-header">
-                    <h2><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h2>
-                    <button id="toggleViewBtn" class="btn btn-secondary">
-                        <i class="fas fa-eye"></i> View Recipes
-                    </button>
-                </div>
-
-                <!-- Add Recipe Form -->
-                <div id="addRecipeSection" class="add-recipe-section">
-                    <h3><i class="fas fa-plus-circle"></i> Add New Recipe</h3>
-                    <form id="recipeForm" class="recipe-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="recipeName">Recipe Name:</label>
-                                <input type="text" id="recipeName" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="recipeCategory">Category:</label>
-                                <select id="recipeCategory" required>
-                                    <option value="">Select Category</option>
-                                    <option value="Appetizer">Appetizer</option>
-                                    <option value="Main Course">Main Course</option>
-                                    <option value="Dessert">Dessert</option>
-                                    <option value="Beverage">Beverage</option>
-                                    <option value="Snack">Snack</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="cookingTime">Cooking Time (minutes):</label>
-                                <input type="number" id="cookingTime" min="1" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="servings">Servings:</label>
-                                <input type="number" id="servings" min="1" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="recipeImage">Image URL:</label>
-                            <input type="url" id="recipeImage" placeholder="https://example.com/image.jpg">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="recipeDescription">Description:</label>
-                            <textarea id="recipeDescription" rows="3" required></textarea>
-                        </div>
-                        
-                        <div class="ingredients-section">
-                            <label>Ingredients:</label>
-                            <div id="ingredientsList">
-                                <div class="ingredient-item">
-                                    <input type="text" placeholder="Ingredient" required>
-                                    <button type="button" class="btn btn-danger remove-ingredient">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <button type="button" id="addIngredient" class="btn btn-outline">
-                                <i class="fas fa-plus"></i> Add Ingredient
-                            </button>
-                        </div>
-                        
-                        <div class="steps-section">
-                            <label>Preparation Steps:</label>
-                            <div id="stepsList">
-                                <div class="step-item">
-                                    <span class="step-number">1.</span>
-                                    <textarea placeholder="Describe the preparation step..." required></textarea>
-                                    <button type="button" class="btn btn-danger remove-step">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <button type="button" id="addStep" class="btn btn-outline">
-                                <i class="fas fa-plus"></i> Add Step
-                            </button>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary btn-large">
-                            <i class="fas fa-save"></i> Save Recipe
-                        </button>
-                    </form>
-                </div>
-            </section>
-
-            <!-- User Interface -->
-            <section id="userInterface" class="user-interface">
-                <!-- Search and Filter -->
-                <div class="search-section">
-                    <div class="search-bar">
-                        <i class="fas fa-search"></i>
-                        <input type="text" id="searchInput" placeholder="Search recipes...">
-                    </div>
-                    <div class="filter-section">
-                        <select id="categoryFilter">
-                            <option value="">All Categories</option>
-                            <option value="Appetizer">Appetizer</option>
-                            <option value="Main Course">Main Course</option>
-                            <option value="Dessert">Dessert</option>
-                            <option value="Beverage">Beverage</option>
-                            <option value="Snack">Snack</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Recipe Stats -->
-                <div class="stats-section">
-                    <div class="stat-card">
-                        <i class="fas fa-book"></i>
-                        <div class="stat-info">
-                            <h3 id="totalRecipes">0</h3>
-                            <p>Total Recipes</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <i class="fas fa-star"></i>
-                        <div class="stat-info">
-                            <h3 id="avgRating">0.0</h3>
-                            <p>Average Rating</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <i class="fas fa-tags"></i>
-                        <div class="stat-info">
-                            <h3 id="totalCategories">0</h3>
-                            <p>Categories</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Recipes Grid -->
-                <div class="recipes-grid" id="recipesGrid">
-                    <!-- Recipes will be dynamically loaded here -->
-                </div>
-            </section>
-        </div>
+        
+        <div class="categories">
+    <div class="category active" data-category="all">All Recipes</div>
+    <div class="category" data-category="Juices">Juices</div> <!-- Fixed category name -->
+    <div class="category" data-category="Desserts">Desserts</div>
+    <div class="category" data-category="Vegetarian">Vegetarian</div>
+    <div class="category" data-category="Non-veg">Non-Vegetarian</div> <!-- Fixed category name -->
+</div>
+        
+        <div id="recipe-container" class="recipe-grid"></div>
     </main>
 
-    <!-- Recipe Detail Modal -->
-    <div id="recipeModal" class="modal">
-        <div class="modal-content recipe-detail">
+    <div id="recipe-modal" class="modal">
+        <div class="modal-content glass-card">
             <span class="close">&times;</span>
-            <div id="recipeDetail">
-                <!-- Recipe details will be loaded here -->
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+                <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> <span id="modal-time"></span></span>
+                    <span><i class="fas fa-users"></i> <span id="modal-servings"></span> servings</span>
+                    <span class="recipe-category" id="modal-category"></span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="image-container">
+                    <img id="modal-image" src="" alt="" class="floating-image">
+                    <div class="floating-bg"></div>
+                </div>
+                <div class="details-grid">
+                    <div class="ingredients glass-card">
+                        <h3><i class="fas fa-carrot"></i> Ingredients</h3>
+                        <ul id="modal-ingredients"></ul>
+                    </div>
+                    <div class="steps glass-card">
+                        <h3><i class="fas fa-list-ol"></i> Preparation Steps</h3>
+                        <ol id="modal-steps"></ol>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Recipe Book. All rights reserved.</p>
-        </div>
-    </footer>
+    
+    </div>
+    
 
     <script src="script.js"></script>
 </body>
